@@ -102,6 +102,10 @@ span p {
   margin: .5em;
 }
 
+audio {
+  width: 90%;
+}
+
 @media(min-width: 900px) {
   header {
     width: 88%;

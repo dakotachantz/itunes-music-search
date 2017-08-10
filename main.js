@@ -19,7 +19,14 @@ submit.addEventListener("click", function (e) {
 
   e.preventDefault();
 
-  document.querySelector(".row").innerHTML = '';
+  document.querySelector(".results").innerHTML = '';
+  let searchResult = `
+   <div class="row">
+        <div class="table">TITLE</div>
+        <div class="table">ARTIST</div>
+        <div class="table">ALBUM</div>
+      </div>
+  `
 
   axios.get(url)
     .then(function (response) {
@@ -29,27 +36,34 @@ submit.addEventListener("click", function (e) {
       for (let i = 0; i < 15; i++) {
         data = response.data.results[i];
 
-        let searchResult = `
-        <span class="result">
-        <div class="box" id="result-${[i]}" src="${data.previewUrl}" style="background-image: url(${data.artworkUrl100}); height:100;width:100;">
-        </div>
-        <p class="title">${data.trackName}</p>
-        <p class="artist">${data.artistName}</p> 
-        </span>
+        searchResult = `
+      <div class="row">
+        <div class="table">${data.trackName}</div>
+        <div class="table">${data.artistName}</div>
+        <div class="table">${data.collectionName}</div>
+      </div>
         `
 
-        document.querySelector(".row").innerHTML += searchResult;
-        // searchInput.value = "";
+        document.querySelector(".results").innerHTML += searchResult;
       }
     })
+  document.querySelector(".results").innerHTML += searchResult;
 });
 
 document.querySelector(".row").addEventListener("click", function (e) {
+  let nowPlaying = document.querySelector(".nowPlaying");
   if (e.target && e.target.nodeName == "DIV") {
-    let nowPlaying = `<p>Now Playing: </p>`
+    let songTitle = e.target.getAttribute("data-st");
+    nowPlaying.innerHTML = `<p>Now Playing: ${songTitle}</p>`;
 
-    let title = e.target.innerHTML = "Does this work";
     let song = e.target.getAttribute("src");
     document.querySelector("audio").setAttribute('src', song);
   }
 });
+
+/* <span class="result">
+        <div class="box" id="result-${[i]}"  data-st="${data.trackName}" src="${data.previewUrl}" style="background-image: url(${data.artworkUrl100}); height:100;width:100;">
+        </div>
+        <p class="title">${data.trackName}</p>
+        <p class="artist">${data.artistName}</p> 
+        </span> */

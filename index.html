@@ -12,8 +12,16 @@
       <h1>Really Awesome Music Site</h1>
     </header>
     <section class="player">
-      <audio class="music-player" controls="controls" src="" autoplay>>
-      </audio>
+      <img class="cover" src="http://images.genius.com/2216a21a5494b153cb4c24005370d031.700x700x1.jpg" alt="Cover" />
+      <div class="nowPlaying">
+        <div class="info">
+          <p class="title">Leave Your Lover</p>
+          <p class="artist">Artist - Echos</p>
+          <p class="album">Album - Echos</p>
+        </div>
+        <audio class="music-player" controls="controls" src="" autoplay>>
+        </audio>
+      </div>
     </section>
     <section class="search">
       <form class="search-form">
@@ -23,7 +31,8 @@
     </section>
     <section class="results">
       <h2>Search Results:</h2>
-      <div class="row"></div>
+
+
     </section>
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

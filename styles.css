@@ -1,11 +1,22 @@
 body {
-  background-color: #60d9f1;
+  background-color: white;
   margin: 0 auto;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .player {
   border-bottom: solid 1px #004D40;
+  display: flex;
+  flex-direction: column;
+  /* margin: auto; */
+  background-color: skyblue;
+}
+
+header {
+  text-align: center;
+  background-color: grey;
+  width: 100%;
+  align-self: center;
 }
 
 .search-form {
@@ -16,26 +27,26 @@ body {
   justify-content: flex-end;
   align-items: center;
   padding: 2em 0;
-  /* flex-wrap: wrap;
-  flex-direction: column; */
+  background-color: lightgreen;
 }
 
 .searchInput {
-  margin: auto 1em;
   height: 2em;
   width: 15em;
   font-size: 1.2em;
-  /* text-align: ; */
   border: 1px solid darkslategray;
-  flex: 5;
+  flex: 1;
+  transition: .7s;
 }
 
 .searchInput:focus {
-  box-shadow: 2px 2px 1px darkslategrey;
+  box-shadow: 1px 1px 1px lightgrey;
   outline: none;
+  flex: 5;
 }
 
 .submit {
+  margin-left: 1em;
   /* margin: 0 0 3em 0; */
   height: 2em;
   width: 12.3em;
@@ -57,32 +68,26 @@ span p {
   display: flex;
   margin: 0 auto;
   flex-direction: column;
+  background-color: lightpink;
 }
 
 .row {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   width: 100%;
   height: 100%;
-  /* height: 35vh; */
-  justify-content: center;
-  align-items: center;
 }
 
-.box {
-  /* flex: 1; */
+img {
   height: 12em;
   width: 12em;
   margin: 1em;
-  background-image: url('./recipe_default.jpeg');
-  background-size: cover;
   border: 1px solid darkgrey;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+  align-self: center;
+  box-shadow: 5px 20px 50px 0px rgba(17, 17, 17, 0.4);
 }
 
-.box:hover {
+img:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
@@ -103,7 +108,29 @@ span p {
 }
 
 audio {
-  width: 90%;
+  width: 100%;
+}
+
+.table {
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  flex: 1;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 2em;
+}
+
+.row:first-child {
+  font-weight: bold;
+}
+
+.table:first-child {
+  /* border: none; */
+  flex: 1.5;
 }
 
 @media(min-width: 900px) {

@@ -1,16 +1,5 @@
-/*
-  Here is a rough idea for the steps you could take:
-*/
-
-// 1. First select and store the elements you'll be working with
-// 2. Create your `submit` event for getting the user's search term
-// 3. Create your `fetch` request that is called after a submission
-// 4. Create a way to append the fetch results to your page
-// 5. Create a way to listen for a click that will play the song in the audio play
 let searchInput = document.querySelector(".searchInput");
 let submit = document.querySelector(".submit");
-
-
 
 submit.addEventListener("click", function (e) {
   let url = "https://itunes.apple.com/search?term=";
@@ -22,9 +11,10 @@ submit.addEventListener("click", function (e) {
   document.querySelector(".results").innerHTML = '';
   let searchResult = `
    <div class="row">
-        <div class="table">TITLE</div>
-        <div class="table">ARTIST</div>
-        <div class="table">ALBUM</div>
+        <div class="first table icon"></div>
+        <div class="first table">TITLE</div>
+        <div class="first table artist-data">ARTIST</div>
+        <div class="first table">ALBUM</div>
       </div>
   `
 
@@ -37,12 +27,23 @@ submit.addEventListener("click", function (e) {
         data = response.data.results[i];
 
         searchResult = `
-      <div class="row">
-        <div class="table">${data.trackName}</div>
-        <div class="table">${data.artistName}</div>
-        <div class="table">${data.collectionName}</div>
+      <div class="row" artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}">
+          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table icon"><i artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="fa fa-play-circle"></i>
+          </div>
+          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table">${data.trackName}
+          </div>
+          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table artist-data">${data.artistName}
+          </div>
+          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
+      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table">${data.collectionName}
+          </div>
       </div>
-        `
+        `;
 
         document.querySelector(".results").innerHTML += searchResult;
       }
@@ -50,20 +51,29 @@ submit.addEventListener("click", function (e) {
   document.querySelector(".results").innerHTML += searchResult;
 });
 
-document.querySelector(".row").addEventListener("click", function (e) {
-  let nowPlaying = document.querySelector(".nowPlaying");
-  if (e.target && e.target.nodeName == "DIV") {
-    let songTitle = e.target.getAttribute("data-st");
-    nowPlaying.innerHTML = `<p>Now Playing: ${songTitle}</p>`;
+document.querySelector(".results").addEventListener("click", function (e) {
+  let musicPlayer = '';
+  if (e.target && e.target.nodeName == "DIV" || e.target && e.target.nodeName == "I") {
+    let songTitle = e.target.getAttribute("song-title");
+    let artist = e.target.getAttribute("artist");
+    let album = e.target.getAttribute("album");
 
+    musicPlayer = `
+    <img class="cover" src="" alt="Cover">
+    <div class="nowPlaying">
+      <div class="info">
+        <p class="title">${songTitle}</p>
+        <p class="artist">Artist - ${artist}</p>
+        <p class="album">Album - ${album}</p>
+      </div>
+    <audio class="music-player" controls="controls" src="" autoplay>></audio>
+    </div>
+    `
+
+    document.querySelector(".player").innerHTML = musicPlayer;
+    let albumCover = e.target.getAttribute("album-cover");
+    document.querySelector("img").setAttribute('src', albumCover);
     let song = e.target.getAttribute("src");
     document.querySelector("audio").setAttribute('src', song);
   }
 });
-
-/* <span class="result">
-        <div class="box" id="result-${[i]}"  data-st="${data.trackName}" src="${data.previewUrl}" style="background-image: url(${data.artworkUrl100}); height:100;width:100;">
-        </div>
-        <p class="title">${data.trackName}</p>
-        <p class="artist">${data.artistName}</p> 
-        </span> */

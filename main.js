@@ -23,12 +23,13 @@ submit.addEventListener("click", function (e) {
       console.log(response);
 
       let data;
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < response.data.results.length; i++) {
         data = response.data.results[i];
 
         searchResult = `
       <div class="row" artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
       song-title="${data.trackName}" album-cover="${data.artworkUrl100}">
+      <div class="select"></div>
           <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
       song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table icon"><i artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
       song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="fa fa-play-circle"></i>
@@ -59,21 +60,31 @@ document.querySelector(".results").addEventListener("click", function (e) {
     let album = e.target.getAttribute("album");
 
     musicPlayer = `
-    <img class="cover" src="" alt="Cover">
     <div class="nowPlaying">
+    <img class="cover" src="" alt="Cover">
       <div class="info">
         <p class="title">${songTitle}</p>
         <p class="artist">Artist - ${artist}</p>
         <p class="album">Album - ${album}</p>
       </div>
-    <audio class="music-player" controls="controls" src="" autoplay>></audio>
     </div>
+    <audio class="music-player" controls="controls" src="" autoplay>></audio>
     `
 
     document.querySelector(".player").innerHTML = musicPlayer;
     let albumCover = e.target.getAttribute("album-cover");
     document.querySelector("img").setAttribute('src', albumCover);
     let song = e.target.getAttribute("src");
-    document.querySelector("audio").setAttribute('src', song);
+    let audio = document.querySelector("audio");
+
+    audio.setAttribute('src', song);
+
+    var icon = document.querySelector("i");
+    if (audio.getAttribute('src') === document.querySelector("i").getAttribute('src')) {
+      document.querySelector("i").setAttribute("class", "fa fa-pause-circle");
+    }
+
+
   }
 });
+

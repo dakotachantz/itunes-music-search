@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>iTunes Music Search</title>
+  <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://use.fontawesome.com/27763c6ae2.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <header>
-      <h1>Really Awesome Music Site</h1>
-    </header>
-    <section class="player">
-      <audio class="music-player" controls="controls" src=""></audio>
+    <div class="fixed">
+      <header>
+        <h1>iTunes Music Player</h1>
+      </header>
+      <section class="player">
+      </section>
+      <section class="search">
+        <form class="search-form">
+          <input class="searchInput" type="text" value="" placeholder="Search for Song/Artist">
+          <input class="submit" type="submit" value="Search" placeholder="Search">
+        </form>
+      </section>
+    </div>
+    <section class="results">
     </section>
-    <section class="search">
-      <form class="search-form">
-
-
-      </form>
-    </section>
-    <section class="results"></section>
   </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="main.js"></script>
 </body>
 

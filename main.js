@@ -26,8 +26,7 @@ submit.addEventListener("click", function (e) {
         searchResult = `
       <div class="row track" data-artist="${data.artistName}" data-album="${data.collectionName}" src="${data.previewUrl}" 
       data-song-title="${data.trackName}" data-album-cover="${data.artworkUrl100}" onclick="playSong()">
-          <div class="table icon">
-            <i class="fa fa-play-circle"></i>
+          <div class="table icon fa fa-play-circle fa-2x">
           </div>
           <div class="table">${data.trackName}</div>
           <div class="table artist-data">${data.artistName}</div>

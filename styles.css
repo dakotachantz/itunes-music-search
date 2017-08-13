@@ -152,12 +152,7 @@
   
   .icon {
     flex: 1;
-    font-size: 1.5em;
-  }
-  
-  i {
-    position: relative;
-    left: 15px;
+    font-size: 3em;
   }
   
   .artist-data {
@@ -171,6 +166,7 @@
   .fa {
     color: #EFEFEF;
     color: #6D7993;
+    padding: 5px 0 5px 5px;
   }
   
   .row {

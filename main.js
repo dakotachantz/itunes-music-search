@@ -1,10 +1,10 @@
 let searchInput = document.querySelector(".searchInput");
 let submit = document.querySelector(".submit");
+let tracks;
 
 submit.addEventListener("click", function (e) {
   let url = "https://itunes.apple.com/search?term=";
   url += searchInput.value;
-  console.log(url);
 
   e.preventDefault();
 
@@ -20,44 +20,45 @@ submit.addEventListener("click", function (e) {
 
   axios.get(url)
     .then(function (response) {
-      console.log(response);
-
       let data;
       for (let i = 0; i < response.data.results.length; i++) {
         data = response.data.results[i];
-
         searchResult = `
-      <div class="row" artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}">
-      <div class="select"></div>
-          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table icon"><i artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="fa fa-play-circle"></i>
+      <div class="row track" data-artist="${data.artistName}" data-album="${data.collectionName}" src="${data.previewUrl}" 
+      data-song-title="${data.trackName}" data-album-cover="${data.artworkUrl100}" onclick="playSong()">
+          <div class="table icon">
+            <i class="fa fa-play-circle"></i>
           </div>
-          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table">${data.trackName}
-          </div>
-          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table artist-data">${data.artistName}
-          </div>
-          <div artist="${data.artistName}" album="${data.collectionName}" src="${data.previewUrl}" 
-      song-title="${data.trackName}" album-cover="${data.artworkUrl100}" class="table">${data.collectionName}
-          </div>
+          <div class="table">${data.trackName}</div>
+          <div class="table artist-data">${data.artistName}</div>
+          <div class="table">${data.collectionName}</div>
       </div>
         `;
-
         document.querySelector(".results").innerHTML += searchResult;
       }
+      let tracks = document.querySelectorAll(".track");
+
     })
   document.querySelector(".results").innerHTML += searchResult;
 });
 
-document.querySelector(".results").addEventListener("click", function (e) {
+function getTrackElement(target) {
+  if (target.hasAttribute("data-artist")) {
+    return target;
+  } else {
+    getTrackElement(target.parentNode);
+  }
+}
+
+function playSong() {
+  let target = getTrackElement(event.target.parentNode);
+
+
   let musicPlayer = '';
-  if (e.target && e.target.nodeName == "DIV" || e.target && e.target.nodeName == "I") {
-    let songTitle = e.target.getAttribute("song-title");
-    let artist = e.target.getAttribute("artist");
-    let album = e.target.getAttribute("album");
+  if (target && target.nodeName == "DIV" || target && target.nodeName == "I") {
+    let songTitle = target.getAttribute("data-song-title");
+    let artist = target.getAttribute("data-artist");
+    let album = target.getAttribute("data-album");
 
     musicPlayer = `
     <div class="nowPlaying">
@@ -72,9 +73,9 @@ document.querySelector(".results").addEventListener("click", function (e) {
     `
 
     document.querySelector(".player").innerHTML = musicPlayer;
-    let albumCover = e.target.getAttribute("album-cover");
+    let albumCover = target.getAttribute("data-album-cover");
     document.querySelector("img").setAttribute('src', albumCover);
-    let song = e.target.getAttribute("src");
+    let song = target.getAttribute("src");
     let audio = document.querySelector("audio");
 
     audio.setAttribute('src', song);
@@ -86,5 +87,6 @@ document.querySelector(".results").addEventListener("click", function (e) {
 
 
   }
-});
+}
+
 
